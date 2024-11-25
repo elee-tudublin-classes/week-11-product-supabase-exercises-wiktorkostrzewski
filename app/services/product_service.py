@@ -29,3 +29,9 @@ def updateProduct(input: Product) :
 
 def deleteProduct(id : int) :
     result = dataDeleteProduct(id)
+
+def getAllProductsByCategory(category_id: int):
+    # Fetch all products first
+    products = dataGetProducts()  # Assuming you have a function that gets all products
+    filtered_products = [product for product in products if product['category_id'] == category_id]
+    return filtered_products
