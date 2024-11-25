@@ -31,6 +31,19 @@ async def getProfuctUpdateForm(request: Request, id: int):
     # note passing of parameters to the page
     return templates.TemplateResponse("product/partials/product_update_form.html", {"request": request, "product": getProduct(id) })
 
+@router.get("/products/category/{category_id}", response_class=HTMLResponse)
+async def getProductsByCategory(request: Request, category_id: int):
+    # Fetch products filtered by category
+    products = getAllProductsByCategory(category_id)
+    categories = getAllCategories()
+
+    # Return the filtered products list
+    return templates.TemplateResponse("product/products.html", {
+        "request": request,
+        "products": products,
+        "categories": categories
+    })
+
 # https://fastapi.tiangolo.com/tutorial/request-form-models/#pydantic-models-for-forms
 @router.put("/")
 def putProduct(request: Request, productData: Annotated[Product, Form()]) :
